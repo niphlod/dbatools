@@ -13,6 +13,7 @@ Describe "$CommandName Unit Tests" -Tag 'UnitTests' {
     }
 }
 
+
 Describe "$CommandName Integration Tests" -Tag "IntegrationTests" {
     
     Context "command works" {
@@ -55,7 +56,7 @@ Describe "$CommandName Integration Tests" -Tag "IntegrationTests" {
             $credential.Drop()
             $agentProxyInstance2.Drop()
         }
-        
+
         It "Change the job step name" {
             $results = Get-DbaAgentJob -SqlInstance $script:instance2 -Job $job1Instance2
             $results.JobSteps | Where-Object Id -eq 1 | Select-Object -ExpandProperty Name | Should -Be "Step 1"
