@@ -217,7 +217,7 @@ if (-not $Finalize) {
             if ($trialNo -eq 1) {
                 $appvTestName = $f.Name
             } else {
-                $appvTestName = "$f.Name, attempt #$trialNo"
+                $appvTestName = "$($f.Name), attempt #$trialNo"
             }
             Add-AppveyorTest -Name $appvTestName -Framework NUnit -FileName $f.FullName -Outcome Running
             $PesterRun = Invoke-Pester @PesterSplat

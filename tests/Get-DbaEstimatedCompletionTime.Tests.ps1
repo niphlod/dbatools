@@ -26,7 +26,7 @@ Describe "$commandname Integration Tests" -Tags "IntegrationTests" {
     AfterAll {
         $server = Connect-DbaInstance -SqlInstance $script:instance2
         $null = Remove-DbaAgentJob -SqlInstance $server -Job checkdbTestJob -Confirm:$false
-        $null = Get-DbaDatabase -SqlInstance $erver -Database checkdbTestDatabase | Remove-DbaDatabase -Confirm:$false
+        $null = Get-DbaDatabase -SqlInstance $server -Database checkdbTestDatabase | Remove-DbaDatabase -Confirm:$false
     }
 
     Context "Gets Query Estimated Completion" {
