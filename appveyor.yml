@@ -4,8 +4,8 @@ configuration: "Debug"
 
 build_script:
  - ps: Set-Service wuauserv -StartupType Manual #otherwise, choco command exits with code 1058
- - ps: choco install dotnet-5.0-sdk | Out-String | Out-Null
- - ps: choco install dotnetcore-sdk | Out-String | Out-Null
+# - ps: choco install dotnet-5.0-sdk | Out-String | Out-Null
+# - ps: choco install dotnetcore-sdk | Out-String | Out-Null
 # - ps: Push-Location bin\projects\dbatools; dotnet build ;Pop-Location
 
 version: 2.1.{build}
@@ -83,11 +83,12 @@ before_test:
   # don't clown -- for some reason it's just not installing the library
   - ps: if (-not(Test-Path 'C:\Program Files\WindowsPowerShell\Modules\dbatools.library')) { Install-Module -Name dbatools.library -AllowPrerelease -Force | Out-Null }
   # grab appveyor lab files and needed requirements for tests in CI
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   - ps: .\Tests\appveyor.prep.ps1
 
   # Setting up the local SQL Server environments
   - ps: .\Tests\appveyor.sqlserver.ps1
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
 
 test_script:
    # Test with native PS version
